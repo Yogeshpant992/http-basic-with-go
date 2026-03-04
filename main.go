@@ -4,18 +4,21 @@ import ( // this import the library
 	"log"      // this is use to print start server message and the error message in the terminal
 	"net/http" // the core go library that handles http protocol
 	"time"     // need to define the timeout
+	
 )
+
+
+
+
 
 func main() {
 
 	address := ":8080"        // Set the port address to 8080. This : means that listen on all available netwrok interfaces.
 	mux := http.NewServeMux() // mux is like the traffic controller. based on the url it decides which function should work with the given url.
-
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { //'/' is ---> Listen for anyone visiting the root address
-		w.Header().Add("my-header", "my-value")
-		w.WriteHeader(http.StatusAccepted) // send the request which it is either requested or stuats ok and all basically provide you the status of the code.
-		w.Write([]byte("hello\n"))
-	})
+    srv := server.New()
+	mux.HandleFunc("/", srv.HandleIndex)  //'/' is ---> Listen for anyone visiting the root address
+		
+	mux.HandleFunc("/users", srv.HandleUsers) //'/' is ---> Listen for anyone visiting the root address
 	s := &http.Server{
 		Addr:         address,
 		Handler:      mux,
