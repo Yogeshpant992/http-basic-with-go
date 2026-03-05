@@ -5,7 +5,7 @@ import ( // this import the library
 	"net/http" // the core go library that handles http protocol
 	"time"     // need to define the timeout
 
-	"github.com/Yogeshpant992/http-basic-with-go/tree/main/pkg/server"
+	"github.com/Yogeshpant992/http-basic-with-go/pkg/server"
 
 )
 
