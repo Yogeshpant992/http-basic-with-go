@@ -19,7 +19,24 @@ var indexPage = `
 	<p> My first paragraph </p>
 	</body>
 </html>`
+ 
+// user represent the value that are sent as a response to a request 
+type user struct{
+	Name string `json:"Name"`
+	Email string `json:"Email"`
+	Age int `json:"Age"`
 
+}
+type Server struct {
+	users map[string]userinfo
+}
+
+// userinfo is the information that is stored per user
+type userinfo struct{
+	email string;
+	roll_no int;
+	age int;
+}
 
 
 //HandleIndex handle the index path "/"
@@ -31,10 +48,15 @@ func  ( s *Server) HandleIndex(w  http.ResponseWriter, r *http.Request) {
 } 
 
 
+func (s *Server) HandleCreaterUsers(w http.ResponseWriter, r *http.Request)
+{
+	switch r.Method{
+	case http.MethodPost, http.MethodPut:
+          currentType := r.HEader.Get("Content-Type");
+		  contentType != 
+	default:
+		w.WriteHeader(http.StatusMethodNotAllowed) //HTTP 415
+	}
+}
 // HandleIndex handle the user path "/users/create"
-func  ( s *Server) HandleUsers(w  http.ResponseWriter, r *http.Request) {
-	w.Header().Add("content-type", "application/json")
-		w.WriteHeader(http.StatusOK) // send the request which it is either requested or stuats ok and all basically provide you the status of the code.
-		w.Write([]byte(userInfo))
-
-} 
+ 
