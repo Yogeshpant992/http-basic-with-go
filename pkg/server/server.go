@@ -20,10 +20,6 @@ var indexPage = `
 	</body>
 </html>`
 
-var userInfo = `{
-	"name": "testing",
-	"age":21
-}`
 
 
 //HandleIndex handle the index path "/"
@@ -35,7 +31,7 @@ func  ( s *Server) HandleIndex(w  http.ResponseWriter, r *http.Request) {
 } 
 
 
-// HandleIndex handle the user path "/users"
+// HandleIndex handle the user path "/users/create"
 func  ( s *Server) HandleUsers(w  http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 		w.WriteHeader(http.StatusOK) // send the request which it is either requested or stuats ok and all basically provide you the status of the code.
