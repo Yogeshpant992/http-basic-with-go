@@ -20,7 +20,7 @@ func main() {
     srv := server.New()
 	mux.HandleFunc("/", srv.HandleIndex)  //'/' is ---> Listen for anyone visiting the root address
 		
-	mux.HandleFunc("/users", srv.HandleUsers) //'/' is ---> Listen for anyone visiting the root address
+	mux.HandleFunc("/users/create", srv.HandleCreaterUsers) //'/' is ---> Listen for anyone visiting the root address
 	s := &http.Server{
 		Addr:         address,
 		Handler:      mux,

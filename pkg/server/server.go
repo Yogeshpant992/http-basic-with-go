@@ -1,7 +1,12 @@
 package server
 
-import "net/http"
-// Server is an HTTP Server 
+import (
+	"io/ioutil"
+	"log"
+	"net/http"
+)
+
+// Server is an HTTP Server
 type Server struct{
 
 }
@@ -52,8 +57,35 @@ func (s *Server) HandleCreaterUsers(w http.ResponseWriter, r *http.Request)
 {
 	switch r.Method{
 	case http.MethodPost, http.MethodPut:
-          currentType := r.HEader.Get("Content-Type");
-		  contentType != 
+          currentType := r.Header.Get("Content-Type")
+		  if contentType != "application json"{
+		     w.WriteHeader(http.StatusUnsupportedMediaType)
+			 return 
+		  }
+
+		body , err := ioutil.ReadAll(r.Body)
+		if err != nil{
+			log.Printf("could not read request body: %w",err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return 
+		}
+		defer r.Body.Close()
+
+		var u user
+		err = json.Unmarshal(body,&u)
+		if err != nil{
+			log.Printf("Could not marshal request body : %v",err)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		log.Printf("Create User : %v", u.Name)
+		s.user(u.Name) = userinfo(
+			email: u.Email,
+			age: u.Age,
+			
+		)
+
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed) //HTTP 415
 	}
