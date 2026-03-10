@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -53,8 +54,7 @@ func  ( s *Server) HandleIndex(w  http.ResponseWriter, r *http.Request) {
 } 
 
 
-func (s *Server) HandleCreaterUsers(w http.ResponseWriter, r *http.Request)
-{
+func (s *Server) HandleCreaterUsers(w http.ResponseWriter, r *http.Request){
 	switch r.Method{
 	case http.MethodPost, http.MethodPut:
           currentType := r.Header.Get("Content-Type")
@@ -80,11 +80,11 @@ func (s *Server) HandleCreaterUsers(w http.ResponseWriter, r *http.Request)
 		}
 
 		log.Printf("Create User : %v", u.Name)
-		s.user(u.Name) = userinfo(
+		s.users[u.Name]= userinfo{
 			email: u.Email,
 			age: u.Age,
-			
-		)
+
+		}
 
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed) //HTTP 415
